@@ -36,6 +36,8 @@ namespace MovieStudioApi
             // setup dependency injection for service
             services.AddSingleton((IServiceProvider arg) => movies);
 
+            // register DatabaseProvider
+            services.AddTransient<IDatabaseProvider, DatabaseProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
