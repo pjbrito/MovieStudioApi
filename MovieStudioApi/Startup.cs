@@ -16,8 +16,11 @@ namespace MovieStudioApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _environment;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
+            _environment = environment;
             Configuration = configuration;
         }
 
@@ -38,6 +41,11 @@ namespace MovieStudioApi
 
             // register DatabaseProvider
             services.AddTransient<IDatabaseProvider, DatabaseProvider>();
+
+
+            // pretty format json output
+            services.AddControllers()
+                .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = _environment.IsDevelopment());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
