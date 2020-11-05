@@ -5,6 +5,8 @@
 4. Run the following command:  dotnet run
 5. Find all data on the url: http://localhost:5000/metadata
 6. Find data for a MovieId (e.g 3) by using url: http://localhost:5000/metadata/3
+7. Find movie stats on the url: http://localhost:5000/movies/stats
 
 # Tools and Frameworks Used
 * [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core)
+* To recreate the: POST /metadata { ... movie json data ... }, please use [Postman](https://www.postman.com/downloads) and the Postman collection file (MovieStudioApi.postman_collection.json) located on folder: \SOLUTION_FOLDER\Tools\Postman
