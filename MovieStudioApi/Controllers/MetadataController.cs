@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MovieStudioApi.Database;
 using MovieStudioApi.DBEntities;
+using System.Collections.Generic;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,10 +15,12 @@ namespace MovieStudioApi.Controllers
     [ApiController]
     public class MetadataController : ControllerBase
     {
+        private readonly ILogger<MetadataController> _logger;
         private readonly IDatabaseProvider _databaseProvider;
 
-        public MetadataController(IDatabaseProvider databaseProvider)
+        public MetadataController(ILogger<MetadataController> logger, IDatabaseProvider databaseProvider)
         {
+            _logger = logger;
             _databaseProvider = databaseProvider;
         }
 
@@ -25,8 +28,11 @@ namespace MovieStudioApi.Controllers
         [HttpGet]
         public IEnumerable<Movie> Get()
         {
-            return _databaseProvider
+            var movies = _databaseProvider
                 .GetAllMovies();
+            _logger.LogInformation($"Get request done, returned {movies.Count()} movies!");
+
+            return movies;
         }
 
         // GET api/<MetadataController>/5
