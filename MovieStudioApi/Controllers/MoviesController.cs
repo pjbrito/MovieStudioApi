@@ -38,6 +38,8 @@ namespace MovieStudioApi.Controllers
                     Watches = g.Select(x => x.Id).Distinct().Count(),
                     ReleaseYear = g.First().ReleaseYear
                 })
+                .OrderByDescending(x => x.Watches)
+                .ThenByDescending(x => x.ReleaseYear)
                 .ToList();
 
             return stats;
