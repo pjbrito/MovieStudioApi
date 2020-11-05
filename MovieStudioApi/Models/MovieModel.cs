@@ -8,6 +8,12 @@ namespace MovieStudioApi.Models
 {
     public class MovieModel
     {
+        public MovieModel()
+        {
+            
+            
+        }
+
         public MovieModel(Movie movie)
         {
             MovieId = movie.MovieId;
@@ -26,5 +32,17 @@ namespace MovieStudioApi.Models
         public string Duration { get; set; }
 
         public int ReleaseYear { get; set; }
+
+        public static Movie ConvertToMovie(MovieModel mov)
+        {
+            return new Movie(
+                0,
+                mov.MovieId,
+                mov.Title,
+                mov.Language,
+                mov.Duration,
+                mov.ReleaseYear);
+        }
+
     }
 }

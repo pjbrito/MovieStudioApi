@@ -28,13 +28,14 @@ namespace MovieStudioApi.Controllers
 
         // GET: api/<MetadataController>
         [HttpGet]
-        public IEnumerable<Movie> Get()
+        public IEnumerable<MovieModel> Get()
         {
             var movies = _databaseProvider
                 .GetAllMovies();
             _logger.LogInformation($"Get request done, returned {movies.Count()} movies!");
 
-            return movies;
+            return movies
+                .Select(x => new MovieModel(x));
         }
 
         // GET api/<MetadataController>/5
@@ -57,11 +58,12 @@ namespace MovieStudioApi.Controllers
             return Ok(responseData);
         }
 
-
         // POST api/<MetadataController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] MovieModel movie)
         {
+            var v1 = movie.MovieId;
+            _databaseProvider.SaveMovieToDatabase(MovieModel.ConvertToMovie(movie));
         }
 
     }
