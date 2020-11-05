@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "19e12a69-302f-4e10-aff4-e0cc6665c749",
+		"name": "MovieStudioApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Shrek to memory database ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"movieId\": 8,\r\n\"title\": \"Shrek\",\r\n\"language\": \"EN\",\r\n\"duration\": \"1:30:00\",\r\n\"releaseYear\": 2001\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5002/metadata",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"metadata"
+					]
+				},
+				"description": "Post Shrek to memory database\r\nAt Url: http://localhost:5002/metadata\r\n"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
