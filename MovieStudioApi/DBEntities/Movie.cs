@@ -31,6 +31,27 @@ namespace MovieStudioApi.DBEntities
 
         public int ReleaseYear { get; set; }
 
+
+        public bool IsValid()
+        {
+            if (Id == 0)
+                return false;
+
+            if (MovieId == 0)
+                return false;
+
+            if (string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(Language))
+                return false;
+
+            if (Duration.TotalSeconds <= 0)
+                return false;
+
+            if (ReleaseYear == 0)
+                return false;
+
+            return true; // this movie passed all rules => so is valid
+        }
+
     }
 
 }
