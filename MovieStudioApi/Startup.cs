@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MovieStudioApi.Database;
 
 namespace MovieStudioApi
 {
@@ -26,6 +27,15 @@ namespace MovieStudioApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+
+            // get movies hardcoded static data
+            var movies = MovieDataService.GetHardcodedStartupData();
+            // register the service
+            services.AddTransient<IMovieDataService, MovieDataService>();
+            // setup dependency injection for service
+            services.AddSingleton((IServiceProvider arg) => movies);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
