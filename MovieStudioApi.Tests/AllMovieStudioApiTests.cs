@@ -1,6 +1,7 @@
 using MovieStudioApi.DBEntities;
 using NUnit.Framework;
 using System;
+using System.Linq;
 using MovieStudioApi.Database;
 using MovieStudioApi.Tests.Data;
 
@@ -32,24 +33,39 @@ namespace MovieStudioApi.Tests
 
         public class TheDatabaseProvider
         {
-            [Test]
-            public void ReturnsSomeData()
+            private DatabaseProvider _provider;
+
+            [SetUp]
+            public void Setup()
             {
                 var moviesData = MoviesStaticData.GetMoviesStaticData();
                 var f = new DatabaseProviderFactory(moviesData);
-                var prov = f.GetDatabaseProvider();
+                _provider = f.GetDatabaseProvider();
+            }
 
-                var movies = prov.GetAllMovies();
+            [Test]
+            public void ReturnsSomeData()
+            {
+                var movies = _provider.GetAllMovies();
 
                 Assert.IsNotEmpty(movies);
             }
 
-        }
+            [Test]
+            public void ReturnsSpecificMovie()
+            {
+                var testId = 93029;
+                var title = "Specific Movie Test";
+                _provider.SaveMovieToDatabase(new Movie(0, testId, title, "EN", "1:30:00", 2000));
 
-        [Test]
-        public void Test1()
-        {
-            Assert.Pass();
+                var movie = _provider
+                    .GetMovieByMovieId(testId)
+                    .FirstOrDefault();
+
+                Assert.IsNotNull(movie);
+                Assert.AreEqual(testId, movie.MovieId);
+            }
+
         }
 
     }

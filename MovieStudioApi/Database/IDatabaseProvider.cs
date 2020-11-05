@@ -10,6 +10,7 @@ namespace MovieStudioApi.Database
     {
 
         IEnumerable<Movie> GetAllMovies();
+        IEnumerable<Movie> GetMovieByMovieId(int movieId);
         void SaveMovieToDatabase(Movie movie);
 
     }
